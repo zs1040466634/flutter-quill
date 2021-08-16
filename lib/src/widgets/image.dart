@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,19 +14,23 @@ class ImageTapWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
-        ),
-        child: GestureDetector(
-          onTapDown: (_) {
-            Navigator.pop(context);
-          },
-          child: PhotoView(
-            imageProvider: imageProvider,
+      body: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        child: Container(
+          constraints: BoxConstraints.expand(
+            height: MediaQuery.of(context).size.height,
+          ),
+          child: GestureDetector(
+            onTapDown: (_) {
+              Navigator.pop(context);
+            },
+            child: PhotoView(
+              imageProvider: imageProvider,
+            ),
           ),
         ),
       ),
     );
   }
 }
+

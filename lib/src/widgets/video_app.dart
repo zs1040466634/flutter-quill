@@ -68,19 +68,30 @@ class _VideoAppState extends State<VideoApp> {
         },
         child: Stack(alignment: Alignment.center, children: [
           Center(
-              child: AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          )),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
+                child: AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                ),
+              )),
           _controller.value.isPlaying
               ? const SizedBox.shrink()
               : Container(
-                  color: const Color(0xfff5f5f5),
+              color: const Color(0xfff5f5f5),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  color: Colors.black.withOpacity(0.4),
                   child: const Icon(
                     Icons.play_arrow,
-                    size: 60,
-                    color: Colors.blueGrey,
-                  ))
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ))
         ]),
       ),
     );
@@ -92,3 +103,4 @@ class _VideoAppState extends State<VideoApp> {
     _controller.dispose();
   }
 }
+
