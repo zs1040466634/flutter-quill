@@ -8,10 +8,12 @@ class ImageTapWrapper extends StatelessWidget {
   const ImageTapWrapper({
     this.imageProvider,
     this.corner = 0,
+    this.size,
   });
 
   final ImageProvider? imageProvider;
   final double corner;
+  final Size? size;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class ImageTapWrapper extends StatelessWidget {
           },
           child: PhotoView(
             imageProvider: imageProvider,
+            customSize: size,
           ),
         ),
       ),
