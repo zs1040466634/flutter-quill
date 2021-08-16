@@ -11,11 +11,15 @@ import '../../flutter_quill.dart';
 /// Refer to https://github.com/flutter/plugins/tree/master/packages/video_player/video_player
 class VideoApp extends StatefulWidget {
   const VideoApp(
-      {required this.videoUrl, required this.context, required this.readOnly});
+      {required this.videoUrl,
+      required this.context,
+      required this.readOnly,
+      this.playIconSize = 50});
 
   final String videoUrl;
   final BuildContext context;
   final bool readOnly;
+  final double playIconSize;
 
   @override
   _VideoAppState createState() => _VideoAppState();
@@ -69,26 +73,26 @@ class _VideoAppState extends State<VideoApp> {
         child: Stack(alignment: Alignment.center, children: [
           Center(
               child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(4)),
-                child: AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                ),
-              )),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            child: AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            ),
+          )),
           _controller.value.isPlaying
               ? const SizedBox.shrink()
               : ClipOval(
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  color: Colors.black.withOpacity(0.4),
-                  child: const Icon(
-                    Icons.play_arrow,
-                    color: Colors.white,
-                    size: 35,
+                  child: Container(
+                    height: widget.playIconSize,
+                    width: widget.playIconSize,
+                    color: Colors.black.withOpacity(0.4),
+                    child: const Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: widget.playIconSize / 7,
+                    ),
                   ),
-                ),
-              )
+                )
         ]),
       ),
     );
@@ -100,4 +104,3 @@ class _VideoAppState extends State<VideoApp> {
     _controller.dispose();
   }
 }
-
