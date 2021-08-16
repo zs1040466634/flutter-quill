@@ -89,7 +89,7 @@ class _VideoAppState extends State<VideoApp> {
                     child: Icon(
                       Icons.play_arrow,
                       color: Colors.white,
-                      size: widget.playIconSize / 3,
+                      size: widget.playIconSize / 2,
                     ),
                   ),
                 )
