@@ -81,7 +81,7 @@ class _VideoAppState extends State<VideoApp> {
                 child: Container(
                   height: 50,
                   width: 50,
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withOpacity(0.4),
                   child: const Icon(
                     Icons.play_arrow,
                     color: Colors.white,
