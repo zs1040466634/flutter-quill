@@ -18,9 +18,9 @@ class ImageTapWrapper extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.all(Radius.circular(corner)),
       child: Container(
-        constraints: BoxConstraints.expand(
-          height: MediaQuery.of(context).size.height,
-        ),
+        // constraints: BoxConstraints.expand(
+        //   height: MediaQuery.of(context).size.height,
+        // ),
         child: GestureDetector(
           onTapDown: (_) {
             Navigator.pop(context);
