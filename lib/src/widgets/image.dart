@@ -15,20 +15,18 @@ class ImageTapWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(corner)),
-        child: Container(
-          constraints: BoxConstraints.expand(
-            height: MediaQuery.of(context).size.height,
-          ),
-          child: GestureDetector(
-            onTapDown: (_) {
-              Navigator.pop(context);
-            },
-            child: PhotoView(
-              imageProvider: imageProvider,
-            ),
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(corner)),
+      child: Container(
+        constraints: BoxConstraints.expand(
+          height: MediaQuery.of(context).size.height,
+        ),
+        child: GestureDetector(
+          onTapDown: (_) {
+            Navigator.pop(context);
+          },
+          child: PhotoView(
+            imageProvider: imageProvider,
           ),
         ),
       ),
