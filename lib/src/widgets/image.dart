@@ -17,7 +17,7 @@ class ImageTapWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(corner)),
+        borderRadius: BorderRadius.all(Radius.circular(corner)),
         child: Container(
           constraints: BoxConstraints.expand(
             height: MediaQuery.of(context).size.height,

@@ -75,7 +75,7 @@ class _VideoAppState extends State<VideoApp> {
         child: Stack(alignment: Alignment.center, children: [
           Center(
               child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(widget.corner)),
+            borderRadius: BorderRadius.all(Radius.circular(widget.corner)),
             child: AspectRatio(
               aspectRatio: _controller.value.aspectRatio,
               child: VideoPlayer(_controller),
