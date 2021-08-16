@@ -77,21 +77,18 @@ class _VideoAppState extends State<VideoApp> {
               )),
           _controller.value.isPlaying
               ? const SizedBox.shrink()
-              : Container(
-              color: const Color(0xfff5f5f5),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              : ClipOval(
                 child: Container(
-                  height: 40,
-                  width: 40,
-                  color: Colors.black.withOpacity(0.4),
+                  height: 50,
+                  width: 50,
+                  color: Colors.black.withOpacity(0.3),
                   child: const Icon(
                     Icons.play_arrow,
                     color: Colors.white,
-                    size: 20,
+                    size: 35,
                   ),
                 ),
-              ))
+              )
         ]),
       ),
     );
