@@ -86,7 +86,7 @@ class _VideoAppState extends State<VideoApp> {
                     height: widget.playIconSize,
                     width: widget.playIconSize,
                     color: Colors.black.withOpacity(0.4),
-                    child: const Icon(
+                    child: Icon(
                       Icons.play_arrow,
                       color: Colors.white,
                       size: widget.playIconSize / 7,
