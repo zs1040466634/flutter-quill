@@ -71,7 +71,10 @@ class ImageVideoUtils {
 
     if (imageUrl != null) {
       controller.replaceText(index, length, BlockEmbed.image(imageUrl), null);
-      controller.document.insert(length, '\n');
+      controller.document.insert(index + 2, '\n');
+      final adjustedSelection = controller.selection.copyWith(
+        baseOffset: index + 3, extentOffset: index + 3);
+      controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
     }
   }
 
@@ -124,10 +127,9 @@ class ImageVideoUtils {
 
     if (videoUrl != null) {
       controller.replaceText(index, length, BlockEmbed.video(videoUrl), null);
-      // controller.document.insert(length, '\n');
-      final allLength = controller.document.length;
+      controller.document.insert(index + 2, '\n');
       final adjustedSelection = controller.selection.copyWith(
-          baseOffset: allLength + 1,);
+          baseOffset: index + 3, extentOffset: index + 3);
       controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
     }
   }
