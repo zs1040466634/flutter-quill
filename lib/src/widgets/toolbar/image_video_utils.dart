@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_quill/src/models/documents/document.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../flutter_quill.dart';
 import '../../models/documents/nodes/embed.dart';
 import '../../utils/media_pick_setting.dart';
 import '../controller.dart';
