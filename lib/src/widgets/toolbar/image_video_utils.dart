@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../flutter_quill.dart';
 import '../../models/documents/nodes/embed.dart';
 import '../../utils/media_pick_setting.dart';
 import '../controller.dart';
@@ -124,7 +125,10 @@ class ImageVideoUtils {
     if (videoUrl != null) {
       controller.replaceText(index, length, BlockEmbed.video(videoUrl), null);
       // controller.document.insert(length, '\n');
-      controller.document.insert(length, '一二三四');
+      final allLength = controller.document.length;
+      final adjustedSelection = controller.selection.copyWith(
+          baseOffset: allLength + 1,);
+      controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
     }
   }
 
