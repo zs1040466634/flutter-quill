@@ -70,6 +70,7 @@ class ImageVideoUtils {
 
     if (imageUrl != null) {
       controller.replaceText(index, length, BlockEmbed.image(imageUrl), null);
+      controller.document.insert(length, '\n');
     }
   }
 
@@ -122,6 +123,7 @@ class ImageVideoUtils {
 
     if (videoUrl != null) {
       controller.replaceText(index, length, BlockEmbed.video(videoUrl), null);
+      controller.document.insert(length, '\n');
     }
   }
 
