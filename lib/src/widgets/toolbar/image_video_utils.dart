@@ -123,7 +123,8 @@ class ImageVideoUtils {
 
     if (videoUrl != null) {
       controller.replaceText(index, length, BlockEmbed.video(videoUrl), null);
-      controller.document.insert(length, '\n');
+      // controller.document.insert(length, '\n');
+      controller.document.insert(length, '一二三四');
     }
   }
 
