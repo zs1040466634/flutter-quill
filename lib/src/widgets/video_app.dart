@@ -15,13 +15,15 @@ class VideoApp extends StatefulWidget {
       required this.context,
       required this.readOnly,
       this.playIconSize = 50,
-      this.corner = 0});
+      this.corner = 0,
+      this.alignment = Alignment.center});
 
   final String videoUrl;
   final BuildContext context;
   final bool readOnly;
   final double playIconSize;
   final double corner;
+  final Alignment alignment;
 
   @override
   _VideoAppState createState() => _VideoAppState();
@@ -72,15 +74,14 @@ class _VideoAppState extends State<VideoApp> {
                 : _controller.play();
           });
         },
-        child: Stack(alignment: Alignment.center, children: [
-          Center(
-              child: ClipRRect(
+        child: Stack(alignment: widget.alignment, children: [
+          ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(widget.corner)),
             child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
             ),
-          )),
+          ),
           _controller.value.isPlaying
               ? const SizedBox.shrink()
               : ClipOval(
