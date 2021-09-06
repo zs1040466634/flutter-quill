@@ -50,18 +50,36 @@ class _VideoAppState extends State<VideoApp> {
   Widget build(BuildContext context) {
     final defaultStyles = DefaultStyles.getInstance(context);
     if (!_controller.value.isInitialized || _controller.value.hasError) {
-      if (widget.readOnly) {
-        return RichText(
-          text: TextSpan(
-              text: widget.videoUrl,
-              style: defaultStyles.link,
-              recognizer: TapGestureRecognizer()
-                ..onTap = () => launch(widget.videoUrl)),
-        );
-      }
-
-      return RichText(
-          text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
+    //   if (widget.readOnly) {
+    //     return RichText(
+    //       text: TextSpan(
+    //           text: widget.videoUrl,
+    //           style: defaultStyles.link,
+    //           recognizer: TapGestureRecognizer()
+    //             ..onTap = () => launch(widget.videoUrl)),
+    //     );
+    //   }
+    //
+    //   return RichText(
+    //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
+      return Container(
+        height: 300,
+        color: Colors.black.withOpacity(0.5),
+        child: Center(
+          child: ClipOval(
+            child: Container(
+              height: widget.playIconSize,
+              width: widget.playIconSize,
+              color: Colors.black.withOpacity(0.4),
+              child: Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+                size: widget.playIconSize / 2,
+              ),
+            ),
+          ),
+        ),
+      );
     }
 
     return Container(
