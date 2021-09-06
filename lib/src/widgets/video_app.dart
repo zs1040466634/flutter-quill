@@ -102,20 +102,18 @@ class _VideoAppState extends State<VideoApp> {
           ),
           _controller.value.isPlaying
               ? const SizedBox.shrink()
-              : Center(
-                child: ClipOval(
-                    child: Container(
-                      height: widget.playIconSize,
-                      width: widget.playIconSize,
-                      color: Colors.black.withOpacity(0.4),
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                        size: widget.playIconSize / 2,
-                      ),
+              : ClipOval(
+                  child: Container(
+                    height: widget.playIconSize,
+                    width: widget.playIconSize,
+                    color: Colors.black.withOpacity(0.4),
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: Colors.white,
+                      size: widget.playIconSize / 2,
                     ),
                   ),
-              )
+                )
         ]),
       ),
     );
