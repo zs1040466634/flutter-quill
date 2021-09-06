@@ -71,10 +71,18 @@ class ImageVideoUtils {
 
     if (imageUrl != null) {
       controller.replaceText(index, length, BlockEmbed.image(imageUrl), null);
-      controller.document.insert(index + 2, '\n');
-      final adjustedSelection = controller.selection.copyWith(
-        baseOffset: index + 3, extentOffset: index + 3);
-      controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      if (index + 2 >= controller.document.length) {
+        controller.document.insert(index + 1, '\n');
+        final adjustedSelection = controller.selection.copyWith(
+            baseOffset: index + 2 , extentOffset: index + 2);
+        controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      } else {
+        controller.document.insert(index + 2, '\n');
+        final adjustedSelection = controller.selection.copyWith(
+            baseOffset: index + 3, extentOffset: index + 3);
+        controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      }
+
     }
   }
 
@@ -127,10 +135,17 @@ class ImageVideoUtils {
 
     if (videoUrl != null) {
       controller.replaceText(index, length, BlockEmbed.video(videoUrl), null);
-      controller.document.insert(index + 2, '\n');
-      final adjustedSelection = controller.selection.copyWith(
-          baseOffset: index + 3, extentOffset: index + 3);
-      controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      if (index + 2 >= controller.document.length) {
+        controller.document.insert(index + 1, '\n');
+        final adjustedSelection = controller.selection.copyWith(
+            baseOffset: index + 2 , extentOffset: index + 2);
+        controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      } else {
+        controller.document.insert(index + 2, '\n');
+        final adjustedSelection = controller.selection.copyWith(
+            baseOffset: index + 3, extentOffset: index + 3);
+        controller.updateSelection(adjustedSelection, ChangeSource.LOCAL);
+      }
     }
   }
 
