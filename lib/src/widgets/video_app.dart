@@ -39,11 +39,18 @@ class _VideoAppState extends State<VideoApp> {
     _controller = widget.videoUrl.startsWith('http')
         ? VideoPlayerController.network(widget.videoUrl)
         : VideoPlayerController.file(File(widget.videoUrl))
-      ..initialize().then((_) {
+      ..initialize().then((event) {
         // Ensure the first frame is shown after the video is initialized,
         // even before the play button has been pressed.
         setState(() {});
+      })..addListener(() {
+        if (!_controller.value.isPlaying) {
+          setState(() {
+
+          });
+        }
       });
+
   }
 
   @override
@@ -64,7 +71,7 @@ class _VideoAppState extends State<VideoApp> {
     //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
       return Container(
         height: 300,
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withOpacity(0.3),
         child: Center(
           child: ClipOval(
             child: Container(
