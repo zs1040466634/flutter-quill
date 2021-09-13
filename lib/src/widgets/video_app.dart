@@ -16,7 +16,8 @@ class VideoApp extends StatefulWidget {
       required this.readOnly,
       this.playIconSize = 50,
       this.corner = 0,
-      this.alignment = Alignment.center});
+      this.alignment = Alignment.center,
+      required this.key});
 
   final String videoUrl;
   final BuildContext context;
@@ -24,6 +25,7 @@ class VideoApp extends StatefulWidget {
   final double playIconSize;
   final double corner;
   final Alignment alignment;
+  final Key key;
 
   @override
   _VideoAppState createState() => _VideoAppState();
@@ -51,6 +53,10 @@ class _VideoAppState extends State<VideoApp> {
         }
       });
 
+  }
+
+  void stop() {
+    _controller.pause();
   }
 
   @override
