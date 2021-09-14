@@ -10,14 +10,14 @@ import '../../flutter_quill.dart';
 /// Widget for playing back video
 /// Refer to https://github.com/flutter/plugins/tree/master/packages/video_player/video_player
 class VideoApp extends StatefulWidget {
-  VideoApp(
+  const VideoApp(
       {required this.videoUrl,
       required this.context,
       required this.readOnly,
       this.playIconSize = 50,
       this.corner = 0,
       this.alignment = Alignment.center,
-      this.key});
+      Key? key}) : super(key: key);
 
   final String videoUrl;
   final BuildContext context;
@@ -25,7 +25,7 @@ class VideoApp extends StatefulWidget {
   final double playIconSize;
   final double corner;
   final Alignment alignment;
-  final Key? key;
+
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -76,7 +76,9 @@ class VideoAppState extends State<VideoApp> {
     //   return RichText(
     //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
       return Container(
-        // height: 300,
+        constraints: const BoxConstraints(
+            minHeight: 50.0
+        ),
         color: Colors.black.withOpacity(0.3),
         child: Center(
           child: ClipOval(
@@ -96,7 +98,9 @@ class VideoAppState extends State<VideoApp> {
     }
 
     return Container(
-      // height: 300,
+      constraints: const BoxConstraints(
+          minHeight: 50,
+      ),
       child: InkWell(
         onTap: () {
           setState(() {
