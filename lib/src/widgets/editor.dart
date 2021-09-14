@@ -214,7 +214,7 @@ Widget _defaultEmbedBuilder(
         return YoutubeVideoApp(
             videoUrl: videoUrl, context: context, readOnly: readOnly);
       }
-      return VideoApp(videoUrl: videoUrl, context: context, readOnly: readOnly);
+      return VideoApp(videoUrl: videoUrl, context: context, readOnly: readOnly, minHeight: 200, maxHeight: 300, corner: 8,);
     default:
       throw UnimplementedError(
         'Embeddable type "${node.value.type}" is not supported by default '
