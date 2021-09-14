@@ -17,7 +17,10 @@ class VideoApp extends StatefulWidget {
       this.playIconSize = 50,
       this.corner = 0,
       this.alignment = Alignment.center,
-      Key? key}) : super(key: key);
+      this.minHeight = 0,
+      this.maxHeight = double.infinity,
+      Key? key})
+      : super(key: key);
 
   final String videoUrl;
   final BuildContext context;
@@ -25,7 +28,8 @@ class VideoApp extends StatefulWidget {
   final double playIconSize;
   final double corner;
   final Alignment alignment;
-
+  final double minHeight;
+  final double maxHeight;
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -45,14 +49,12 @@ class VideoAppState extends State<VideoApp> {
         // Ensure the first frame is shown after the video is initialized,
         // even before the play button has been pressed.
         setState(() {});
-      })..addListener(() {
+      })
+      ..addListener(() {
         if (!_controller.value.isPlaying) {
-          setState(() {
-
-          });
+          setState(() {});
         }
       });
-
   }
 
   void stop() {
@@ -63,22 +65,21 @@ class VideoAppState extends State<VideoApp> {
   Widget build(BuildContext context) {
     final defaultStyles = DefaultStyles.getInstance(context);
     if (!_controller.value.isInitialized || _controller.value.hasError) {
-    //   if (widget.readOnly) {
-    //     return RichText(
-    //       text: TextSpan(
-    //           text: widget.videoUrl,
-    //           style: defaultStyles.link,
-    //           recognizer: TapGestureRecognizer()
-    //             ..onTap = () => launch(widget.videoUrl)),
-    //     );
-    //   }
-    //
-    //   return RichText(
-    //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
+      //   if (widget.readOnly) {
+      //     return RichText(
+      //       text: TextSpan(
+      //           text: widget.videoUrl,
+      //           style: defaultStyles.link,
+      //           recognizer: TapGestureRecognizer()
+      //             ..onTap = () => launch(widget.videoUrl)),
+      //     );
+      //   }
+      //
+      //   return RichText(
+      //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
       return Container(
-        constraints: const BoxConstraints(
-            minHeight: 50.0
-        ),
+        constraints: BoxConstraints(
+            minHeight: widget.minHeight, maxHeight: widget.maxHeight),
         color: Colors.black.withOpacity(0.3),
         child: Center(
           child: ClipOval(
@@ -98,9 +99,8 @@ class VideoAppState extends State<VideoApp> {
     }
 
     return Container(
-      constraints: const BoxConstraints(
-          minHeight: 50,
-      ),
+      constraints: BoxConstraints(
+          minHeight: widget.minHeight, maxHeight: widget.maxHeight),
       child: InkWell(
         onTap: () {
           setState(() {
@@ -113,8 +113,8 @@ class VideoAppState extends State<VideoApp> {
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(widget.corner)),
             child: AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: VideoPlayer(_controller),
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
             ),
           ),
           _controller.value.isPlaying
