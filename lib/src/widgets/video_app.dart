@@ -17,7 +17,7 @@ class VideoApp extends StatefulWidget {
       this.playIconSize = 50,
       this.corner = 0,
       this.alignment = Alignment.center,
-      Key? key});
+      this.key});
 
   final String videoUrl;
   final BuildContext context;
@@ -25,6 +25,7 @@ class VideoApp extends StatefulWidget {
   final double playIconSize;
   final double corner;
   final Alignment alignment;
+  final Key? key;
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -75,7 +76,7 @@ class VideoAppState extends State<VideoApp> {
     //   return RichText(
     //       text: TextSpan(text: widget.videoUrl, style: defaultStyles.link));
       return Container(
-        height: 300,
+        // height: 300,
         color: Colors.black.withOpacity(0.3),
         child: Center(
           child: ClipOval(
@@ -95,7 +96,7 @@ class VideoAppState extends State<VideoApp> {
     }
 
     return Container(
-      height: 300,
+      // height: 300,
       child: InkWell(
         onTap: () {
           setState(() {
