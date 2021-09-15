@@ -192,15 +192,18 @@ Widget _defaultEmbedBuilder(
               ][_index];
             }
           }
-          return Padding(
-              padding: EdgeInsets.all(m),
-              child: imageUrl.startsWith('http')
-                  ? Image.network(imageUrl, width: w, height: h, alignment: a)
-                  : isBase64(imageUrl)
-                      ? Image.memory(base64.decode(imageUrl),
-                          width: w, height: h, alignment: a)
-                      : Image.file(io.File(imageUrl),
-                          width: w, height: h, alignment: a));
+          return ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            child: Padding(
+                padding: EdgeInsets.all(m),
+                child: imageUrl.startsWith('http')
+                    ? Image.network(imageUrl, width: w, height: h, alignment: a)
+                    : isBase64(imageUrl)
+                        ? Image.memory(base64.decode(imageUrl),
+                            width: w, height: h, alignment: a)
+                        : Image.file(io.File(imageUrl),
+                            width: w, height: h, alignment: a)),
+          );
         }
       }
       return imageUrl.startsWith('http')
