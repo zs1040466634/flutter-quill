@@ -7,7 +7,7 @@ import 'package:photo_view/photo_view.dart';
 class ImageTapWrapper extends StatelessWidget {
   const ImageTapWrapper({
     this.imageProvider,
-    this.corner = 0,
+    this.corner = 8,
   });
 
   final ImageProvider? imageProvider;
