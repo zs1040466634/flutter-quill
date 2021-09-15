@@ -15,7 +15,7 @@ class VideoApp extends StatefulWidget {
       required this.context,
       required this.readOnly,
       this.playIconSize = 50,
-      this.corner = 0,
+      this.corner = 8,
       this.alignment = Alignment.center,
       this.minHeight = 0,
       this.maxHeight = double.infinity,
