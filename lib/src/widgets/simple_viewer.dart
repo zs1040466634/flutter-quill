@@ -107,11 +107,14 @@ class _QuillSimpleViewerState extends State<QuillSimpleViewer>
     switch (node.value.type) {
       case 'image':
         final imageUrl = _standardizeImageUrl(node.value.data);
-        return imageUrl.startsWith('http')
-            ? Image.network(imageUrl)
-            : isBase64(imageUrl)
-                ? Image.memory(base64.decode(imageUrl))
-                : Image.file(io.File(imageUrl));
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: imageUrl.startsWith('http')
+              ? Image.network(imageUrl)
+              : isBase64(imageUrl)
+                  ? Image.memory(base64.decode(imageUrl))
+                  : Image.file(io.File(imageUrl)),
+        );
       case 'video':
         final videoUrl = node.value.data;
         if (videoUrl.contains('youtube.com') || videoUrl.contains('youtu.be')) {
