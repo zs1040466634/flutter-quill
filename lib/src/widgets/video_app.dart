@@ -138,13 +138,13 @@ class VideoAppState extends State<VideoApp> {
                   ),
                 ),
           Positioned(
-            right: 8.0,
-            bottom: 8.0,
+            right: 0,
+            bottom: 0,
             child: Offstage(
               offstage: !widget.showDetail,
               child: IconButton(
                 padding: EdgeInsets.all(0),
-                iconSize: widget.playIconSize / 3,
+                iconSize: widget.playIconSize / 3 * 2,
                 color: Color(0xFFFFFFFF),
                 icon: Icon(Icons.fullscreen),
                 onPressed: () {
