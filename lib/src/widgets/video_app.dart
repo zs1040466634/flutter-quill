@@ -18,8 +18,8 @@ class VideoApp extends StatefulWidget {
       this.corner = 8,
       this.alignment = Alignment.center,
       this.minHeight = 0,
-      this.maxHeight = double.infinity,
-      Key? key})
+      this.maxHeight = double.infinity, this.onDoubleTap,
+      Key? key,})
       : super(key: key);
 
   final String videoUrl;
@@ -30,7 +30,7 @@ class VideoApp extends StatefulWidget {
   final Alignment alignment;
   final double minHeight;
   final double maxHeight;
-  final VoidCallback onDoubleTap;
+  final VoidCallback? onDoubleTap;
 
   @override
   VideoAppState createState() => VideoAppState();
