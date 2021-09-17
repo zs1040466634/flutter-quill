@@ -21,6 +21,7 @@ class VideoApp extends StatefulWidget {
     this.maxHeight = double.infinity,
     this.onDetail,
     this.showDetail = false,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -33,7 +34,8 @@ class VideoApp extends StatefulWidget {
   final double minHeight;
   final double maxHeight;
   final VoidCallback? onDetail;
-  final bool showDetail ;
+  final bool showDetail;
+  final VoidCallback? onTap;
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -106,7 +108,7 @@ class VideoAppState extends State<VideoApp> {
       constraints: BoxConstraints(
           minHeight: widget.minHeight, maxHeight: widget.maxHeight),
       child: InkWell(
-        onTap: () {
+        onTap: widget.onTap ?? () {
           setState(() {
             _controller.value.isPlaying
                 ? _controller.pause()
