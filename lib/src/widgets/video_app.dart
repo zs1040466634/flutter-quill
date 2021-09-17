@@ -10,17 +10,19 @@ import '../../flutter_quill.dart';
 /// Widget for playing back video
 /// Refer to https://github.com/flutter/plugins/tree/master/packages/video_player/video_player
 class VideoApp extends StatefulWidget {
-  const VideoApp(
-      {required this.videoUrl,
-      required this.context,
-      required this.readOnly,
-      this.playIconSize = 50,
-      this.corner = 8,
-      this.alignment = Alignment.center,
-      this.minHeight = 0,
-      this.maxHeight = double.infinity, this.onDoubleTap,
-      Key? key,})
-      : super(key: key);
+  const VideoApp({
+    required this.videoUrl,
+    required this.context,
+    required this.readOnly,
+    this.playIconSize = 50,
+    this.corner = 8,
+    this.alignment = Alignment.center,
+    this.minHeight = 0,
+    this.maxHeight = double.infinity,
+    this.onDetail,
+    this.showDetail = false,
+    Key? key,
+  }) : super(key: key);
 
   final String videoUrl;
   final BuildContext context;
@@ -30,7 +32,8 @@ class VideoApp extends StatefulWidget {
   final Alignment alignment;
   final double minHeight;
   final double maxHeight;
-  final VoidCallback? onDoubleTap;
+  final VoidCallback? onDetail;
+  final bool showDetail ;
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -110,7 +113,6 @@ class VideoAppState extends State<VideoApp> {
                 : _controller.play();
           });
         },
-        onDoubleTap: widget.onDoubleTap,
         child: Stack(alignment: widget.alignment, children: [
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(widget.corner)),
@@ -132,7 +134,26 @@ class VideoAppState extends State<VideoApp> {
                       size: widget.playIconSize / 2,
                     ),
                   ),
-                )
+                ),
+          Positioned(
+            right: 8.0,
+            bottom: 8.0,
+            child: Offstage(
+              offstage: !widget.showDetail,
+              child: IconButton(
+                padding: EdgeInsets.all(0),
+                iconSize: widget.playIconSize / 3,
+                color: Color(0xFFFFFFFF),
+                icon: Icon(Icons.fullscreen),
+                onPressed: () {
+                  _controller.pause();
+                  if (widget.onDetail != null) {
+                    widget.onDetail!();
+                  }
+                },
+              ),
+            ),
+          )
         ]),
       ),
     );
