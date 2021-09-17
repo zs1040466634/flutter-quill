@@ -30,6 +30,7 @@ class VideoApp extends StatefulWidget {
   final Alignment alignment;
   final double minHeight;
   final double maxHeight;
+  final VoidCallback onDoubleTap;
 
   @override
   VideoAppState createState() => VideoAppState();
@@ -109,6 +110,7 @@ class VideoAppState extends State<VideoApp> {
                 : _controller.play();
           });
         },
+        onDoubleTap: widget.onDoubleTap,
         child: Stack(alignment: widget.alignment, children: [
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(widget.corner)),
