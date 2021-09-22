@@ -114,7 +114,14 @@ class _HomePageState extends State<HomePage> {
               const Tuple2(0, 0),
               null),
           sizeSmall: const TextStyle(fontSize: 9),
-        ));
+        ),
+      imageClick: (url) {
+          print('imageUrl : ${url}');
+      },
+      videoClick: (url) {
+        print('videoUrl : ${url}');
+      },
+    );
     if (kIsWeb) {
       quillEditor = QuillEditor(
           controller: _controller!,

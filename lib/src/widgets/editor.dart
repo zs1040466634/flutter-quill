@@ -145,8 +145,8 @@ String _standardizeImageUrl(String url) {
 
 bool _isMobile() => io.Platform.isAndroid || io.Platform.isIOS;
 
-Widget _defaultEmbedBuilder(
-    BuildContext context, leaf.Embed node, bool readOnly) {
+Widget _defaultEmbedBuilder(BuildContext context, leaf.Embed node,
+    bool readOnly, ValueChanged? imageClick, ValueChanged? videoClick) {
   assert(!kIsWeb, 'Please provide EmbedBuilder for Web');
   switch (node.value.type) {
     case 'image':
@@ -192,32 +192,63 @@ Widget _defaultEmbedBuilder(
               ][_index];
             }
           }
-          return ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            child: Padding(
-                padding: EdgeInsets.all(m),
-                child: imageUrl.startsWith('http')
-                    ? Image.network(imageUrl, width: w, height: h, alignment: a)
-                    : isBase64(imageUrl)
-                        ? Image.memory(base64.decode(imageUrl),
-                            width: w, height: h, alignment: a)
-                        : Image.file(io.File(imageUrl),
-                            width: w, height: h, alignment: a)),
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              if (imageClick != null) {
+                imageClick(imageUrl);
+              }
+            },
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              child: Padding(
+                  padding: EdgeInsets.all(m),
+                  child: imageUrl.startsWith('http')
+                      ? Image.network(imageUrl,
+                          width: w, height: h, alignment: a)
+                      : isBase64(imageUrl)
+                          ? Image.memory(base64.decode(imageUrl),
+                              width: w, height: h, alignment: a)
+                          : Image.file(io.File(imageUrl),
+                              width: w, height: h, alignment: a)),
+            ),
           );
         }
       }
-      return imageUrl.startsWith('http')
-          ? Image.network(imageUrl)
-          : isBase64(imageUrl)
-              ? Image.memory(base64.decode(imageUrl))
-              : Image.file(io.File(imageUrl));
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          if (imageClick != null) {
+            imageClick(imageUrl);
+          }
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          child: imageUrl.startsWith('http')
+              ? Image.network(imageUrl)
+              : isBase64(imageUrl)
+                  ? Image.memory(base64.decode(imageUrl))
+                  : Image.file(io.File(imageUrl)),
+        ),
+      );
     case 'video':
       final videoUrl = node.value.data;
       if (videoUrl.contains('youtube.com') || videoUrl.contains('youtu.be')) {
         return YoutubeVideoApp(
             videoUrl: videoUrl, context: context, readOnly: readOnly);
       }
-      return VideoApp(videoUrl: videoUrl, context: context, readOnly: readOnly, minHeight: 200, maxHeight: 300);
+      return VideoApp(
+        videoUrl: videoUrl,
+        context: context,
+        readOnly: readOnly,
+        minHeight: 200,
+        maxHeight: 300,
+        onTap: () {
+          if (videoClick != null) {
+            videoClick(videoUrl);
+          }
+        },
+      );
     default:
       throw UnimplementedError(
         'Embeddable type "${node.value.type}" is not supported by default '
@@ -254,7 +285,9 @@ class QuillEditor extends StatefulWidget {
       this.onSingleLongTapStart,
       this.onSingleLongTapMoveUpdate,
       this.onSingleLongTapEnd,
-      this.embedBuilder = _defaultEmbedBuilder});
+      this.embedBuilder,
+      this.imageClick,
+      this.videoClick});
 
   factory QuillEditor.basic({
     required QuillController controller,
@@ -291,6 +324,9 @@ class QuillEditor extends StatefulWidget {
   final Brightness keyboardAppearance;
   final ScrollPhysics? scrollPhysics;
   final ValueChanged<String>? onLaunchUrl;
+  final ValueChanged? imageClick;
+  final ValueChanged? videoClick;
+
   // Returns whether gesture is handled
   final bool Function(
       TapDownDetails details, TextPosition Function(Offset offset))? onTapDown;
@@ -307,12 +343,13 @@ class QuillEditor extends StatefulWidget {
   // Returns whether gesture is handled
   final bool Function(LongPressMoveUpdateDetails details,
       TextPosition Function(Offset offset))? onSingleLongTapMoveUpdate;
+
   // Returns whether gesture is handled
   final bool Function(
           LongPressEndDetails details, TextPosition Function(Offset offset))?
       onSingleLongTapEnd;
 
-  final EmbedBuilder embedBuilder;
+  final EmbedBuilder? embedBuilder;
 
   @override
   _QuillEditorState createState() => _QuillEditorState();
@@ -415,8 +452,12 @@ class _QuillEditorState extends State<QuillEditor>
           textSelectionControls,
           widget.keyboardAppearance,
           widget.enableInteractiveSelection,
-          widget.scrollPhysics,
-          widget.embedBuilder),
+          widget.scrollPhysics, (ctx, node, readOnly) {
+        return widget.embedBuilder == null
+            ? _defaultEmbedBuilder(
+                context, node, readOnly, widget.imageClick, widget.videoClick)
+            : widget.embedBuilder!(ctx, node, readOnly);
+      }),
     );
   }
 
@@ -583,7 +624,13 @@ class _QuillEditorSelectionGestureDetectorBuilder
       }
     }
 
-    getEditor()!.hideToolbar();
+    if (delegate.getSelectionEnabled() &&
+        shouldShowSelectionToolbar &&
+        getEditor()!.getSelectionOverlay()?.toolbar == null) {
+      getEditor()!.showToolbar();
+    } else {
+      getEditor()!.hideToolbar();
+    }
 
     final positionSelected = _onTapping(details);
 
